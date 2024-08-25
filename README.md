@@ -1,11 +1,17 @@
 <h1 align="center">Hi 👋, I'm Berk Askeroğlu</h1>
 <h3 align="center">Aspiring Full-Stack Developer</h3>
 
-- 🔭 I’m currently working on **a Flutter budget management mobile application**
+- 🔭 I’m currently working on **a Flutter budget management mobile application, a Svelte web site and several dotnet applications.**
 
-- 🌱 I’m currently learning **Golang, Svelte and advanced C#**
+- 🌱 I’m currently learning **C#, Golang, Svelte, Flutter and different kinds of DevOps tools.**
 
-- 👨‍💻 All of my projects are available at [https://github.com/berkaskeroglu/My-Projects](https://github.com/berkaskeroglu/My-Projects)
+- My main field is .NET technologies but I love to use and learn other technologies when necessary.
+
+- I have developed many kinds of projects so far: Console apps, MVC projects, Bash and Cronjob tasks, REST APIs for my side projects, Flutter mobile app, Svelte web app and many more.
+
+- I have weekly plans that cover a wide range of fields while maintaining sustainability and integrity. You can also find these plans in my profile..
+
+- 👨‍💻 All of my projects are available at [https://github.com/berkaskeroglu/berkaskeroglu](https://github.com/berkaskeroglu/berkaskeroglu)
 
 - 📫 How to reach me **mbaskeroglu@gmail.com**
 
