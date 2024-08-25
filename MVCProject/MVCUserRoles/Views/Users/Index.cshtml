@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+@if (ViewBag.displayMenu == "Yes")
+{
+    <h1>Welcome to the Admin Panel</h1> 
+    
+    <h3>Now you can create new accounts or display the Crawler Job data</h3>
+    <h3>
+        <li>@Html.ActionLink("Create Accounts", "Register", "Account")</li>
+        <li>@Html.ActionLink("Access admin panel", "Index", "Crawljob")</li>
+    </h3>
+}
+else
+{
+    <h2>  Welcome <strong>@ViewBag.Name</strong> :) .We will add user module soon </h2>
+}
+

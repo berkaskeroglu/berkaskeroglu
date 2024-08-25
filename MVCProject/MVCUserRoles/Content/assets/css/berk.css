@@ -1,0 +1,53 @@
+﻿.column {
+	width: 300px; /* Sütun genişliği */
+	max-width: 300px; /* Maksimum genişlik */
+	word-wrap: break-word; /* Kelimeleri kır */
+}
+
+.menu-text-berk {
+	width: 280px;
+	max-width: 280px;
+	word-wrap: break-word;
+}
+
+.menu-text-berk1 {
+	width: 290px;
+	max-width: 290px;
+	word-wrap: break-word;
+}
+
+.status-color-done {
+    color: green;
+
+}
+
+.delete-button {
+    background-color: #FF7659;
+    color: white;
+    border: 1px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #FFA07A; /* veya istediğiniz başka bir renk */
+
+}
+
+.berk-class {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+.form-content form {
+    display: inline-block;
+}
+
+
+
