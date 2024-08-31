@@ -1,0 +1,6 @@
+@GodfatherAPI_HostAddress = http://localhost:5265
+
+GET {{GodfatherAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
