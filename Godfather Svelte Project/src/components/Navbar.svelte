@@ -51,8 +51,9 @@
             <li class="dropdown-item" on:click={() => navigate("others")}>Others</li>
         </ul>
     </a>
-    <a class="nav-item" href="#" on:click={() => navigate("timeline")}>Video Timeline</a>
+    <a class="nav-item" href="#" on:click={() => navigate("timeline")}>Timeline</a>
     <a class="nav-item" href="#">Quiz</a>
+    <a class="nav-item" href="#" on:click={() => navigate("shop")}>Shop</a>
 </nav>
 
 {#if isPlaying}
@@ -136,6 +137,7 @@
 
     .music-icon {
         position: fixed;
+        height: 40px;
         top: 20px;
         right: 20px;
         bottom: 20px;

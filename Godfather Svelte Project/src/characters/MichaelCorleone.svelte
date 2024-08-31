@@ -68,6 +68,9 @@
   h1 {
     color: #ce9f10;
   }
+  h1:hover {
+    color: #f4c430;
+  }
   .container {
     display: flex;
     justify-content: space-between;

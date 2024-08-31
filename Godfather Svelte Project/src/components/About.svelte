@@ -84,7 +84,6 @@
 
 
 <style>
-
     .titles {
         font-size: 20px;
         font-weight: 800;

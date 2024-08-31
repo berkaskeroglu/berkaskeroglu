@@ -4,6 +4,7 @@
 	import About from "./components/About.svelte";
 	import Characters from "./components/Characters.svelte";
 	import Navbar from "./components/Navbar.svelte";
+	import Shop from "./components/Shop.svelte";
 	import Timeline from "./components/Timeline.svelte";
 
 	let currentPage = "about";
@@ -26,10 +27,13 @@
 		<MichaelCorleone />
 	{:else if currentPage == "vito-corleone"}
 		<VitoCorleone />
+	{:else if currentPage == "shop"}
+		<Shop />
 	{/if}
 </main>
 
 <style>
+	
 	main {
 		padding: 1rem;
 		max-width: 60%;

@@ -21,6 +21,9 @@
     h2 {
       color: #f4c430;
     }
+    h1:hover {
+      color: #f3c848;
+    }
   
     ul {
       list-style-type: none;
