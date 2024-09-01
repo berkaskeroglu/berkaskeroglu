@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import { cartCount } from '../shop/cartStore';
     let currentImageIndex = 0;
     let products = [];
     let images = [];
@@ -7,15 +8,23 @@
     let stars = [];
     let isDataLoaded = false;
     let imageIndices = {};
+    let currentImageSrc = {};
     
+    function addToCart() {
+        cartCount.update(n => n + 1);
+    }
 
    // let imageSrc = images[currentImageIndex];
 
     function showImage(productId, index) {
-        const productImages = getProductImages(productId);
+        let productImages = getProductImages(productId);
         if (index < 0) index = productImages.length - 1;
-        if (index > productImages.length) index = 0;
+        if (index >= productImages.length) index = 0;
         imageIndices[productId] = index;
+
+        imageIndices = { ...imageIndices, [productId]: index };
+        currentImageSrc[productId] = getCurrentImage(productId);
+        console.log("Current image URL:", getCurrentImage(productId));
     }
 
     function getProductImages(productId) {
@@ -23,13 +32,13 @@
     }
 
     function nextImage(productId) {
-        showImage(productId, (imageIndices[productId] || 0) + 1);
-        console.log("Next image.. Index:", index);
+        showImage(productId, ((imageIndices[productId] || 0) + 1));
+        console.log("Next image.. Index:", imageIndices[productId]);
     }
 
     function prevImage(productId) {
-        showImage(productId, (imageIndices[productId] || 0) - 1);
-        console.log("Previous image.. Index:", index);
+        showImage(productId, ((imageIndices[productId] || 0) - 1));
+        console.log("Previous image.. Index:", imageIndices[productId]);
     }
 
     function getCurrentImage(productId) {
@@ -62,9 +71,11 @@
             }
         });
         stars = await resStars.json();
+        console.log(stars);
         products.forEach(product => {
-            imageIndices[product.productId] = 0;
-        });
+                imageIndices[product.productId] = 0;
+                currentImageSrc[product.productId] = getCurrentImage(product.productId);
+            });
         isDataLoaded = true;
         } catch (error) {
         console.error('Error fetching data:', error);
@@ -76,10 +87,26 @@
 
 
     function getProductRating(productId) {
+        console.log("STAR SAYISI:", stars.length, stars);
+        if (stars.length === 0) return 0;
+        
         const productStars = stars.filter(star => star.productId === productId);
-        const totalStars = productStars.reduce((acc, curr) => acc + Number(curr.Star), 0);
+        console.log("product stars:", productStars);
+        const totalStars = productStars.reduce((acc, curr) => {
+            console.log(curr.star);
+            const starValue = Number(curr.star);
+            if (isNaN(starValue)) {
+                console.error("Invalid star value:", curr.star);
+                return acc;
+            }
+            return acc + starValue;
+        }, 0);
+
+        console.log("total stars:", totalStars);
+        if (productStars.length === 0) return 0;
+        
         return (totalStars / productStars.length) || 0;
-    }
+}
 </script>
 
 
@@ -88,7 +115,7 @@
         {#each products as product (product.productId)}
             <div class="product-item">
                 <div class="product-image-container">
-                    <img src={getCurrentImage(product.productId)} alt="Product Image" class="product-image">
+                    <img src={currentImageSrc[product.productId]} alt="Product Image" class="product-image">
                     <div class="navigation-buttons">
                         <button class="nav-button left" on:click={() => prevImage(product.productId)}>&#10094;</button>
                         <button class="nav-button right" on:click={() => nextImage(product.productId)}>&#10095;</button>
@@ -106,10 +133,16 @@
                         <span class="stars">{'★'.repeat(Math.round(getProductRating(product.productId)))}{'☆'.repeat(5 - Math.round(getProductRating(product.productId)))}</span>
                         <span class="reviews">({stars.filter(s => s.productId === product.productId).length} reviews)</span>
                     </div>
-                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="add-to-cart" on:click={addToCart}>Add to Cart</button>
                 </div>
             </div>
         {/each}
+    </div>
+    <div class="cart-button">
+        🛒
+        {#if $cartCount > 0}
+            <div class="cart-badge">{$cartCount}</div>
+        {/if}
     </div>
 {:else}
     <p>Loading products...</p>
@@ -117,6 +150,38 @@
 
 
 <style>
+    .cart-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .cart-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: #ff4141;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+    }
     .product-container {
         width: 100%;
         display: flex;
@@ -132,7 +197,7 @@
         justify-content: space-between;
         width: 100%;
         height: 300px;
-        background-color: #808080;
+        background-color: #e3e3e3;
         border-radius: 15px;
         padding: 20px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -214,26 +279,26 @@
         font-size: 1.8rem;
         font-weight: bold;
         margin-bottom: 5px;
-        color: #dfe6e9;
+        color: black;
     }
 
     .product-description {
         font-size: 1rem;
-        color: white;
+        color: black;
         margin-bottom: 10px;
         flex-grow: 1;
     }
 
     .product-price {
         font-size: 1.5rem;
-        color: #dfe6e9;
+        color: #d63031;
         font-weight: bold;
         margin-bottom: 10px;
     }
 
     .product-rating {
         font-size: 1rem;
-        color: #ffd700;
+        color: #525252;        ;
         margin-bottom: 10px;
         display: flex;
         align-items: center;
@@ -246,7 +311,7 @@
 
     .reviews {
         font-size: 0.9rem;
-        color: white;
+        color: #525252;
     }
 
     .add-to-cart {
