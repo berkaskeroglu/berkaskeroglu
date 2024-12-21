@@ -3,7 +3,7 @@
 
 - 🔭 I’m currently working on **a Flutter social app and several dotnet applications.**
 
-- 🌱 I’m currently learning **C#, Flutter Golang, Svelte, and different kinds of DevOps tools.**
+- 🌱 I’m currently learning **C#, Flutter, Golang, Svelte, and different kinds of DevOps tools.**
 
 - My main field is .NET technologies but I love to use and learn other technologies when necessary.
 
